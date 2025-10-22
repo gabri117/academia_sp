@@ -1,0 +1,14 @@
+[
+  {
+    "tarifaId": "d9f833d6-0b79-4f69-9d1b-96b8f204c79a",
+    "ofertaId": "5a4f6f84-5ebf-4fa4-8552-0b1d55f62f55",
+    "montoInscripcion": 350.0,
+    "montoMensualidad": 275.0
+  },
+  {
+    "tarifaId": "a1ac0a17-7a0d-4d4e-a9f5-165e296d7c41",
+    "ofertaId": "5a4f6f84-5ebf-4fa4-8552-0b1d55f62f55",
+    "montoInscripcion": 0.0,
+    "montoMensualidad": 250.0
+  }
+]

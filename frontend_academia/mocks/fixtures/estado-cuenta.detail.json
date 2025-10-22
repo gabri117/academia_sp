@@ -1,0 +1,18 @@
+{
+  "alumnoId": "0f4700c5-b5f9-4b8d-8aa8-5a149048d3f8",
+  "periodos": [
+    {
+      "periodo": "ENERO",
+      "totalCargos": 275.0,
+      "totalPagos": 275.0,
+      "saldo": 0.0
+    },
+    {
+      "periodo": "FEBRERO",
+      "totalCargos": 275.0,
+      "totalPagos": 150.0,
+      "saldo": 125.0
+    }
+  ],
+  "saldoTotal": 125.0
+}

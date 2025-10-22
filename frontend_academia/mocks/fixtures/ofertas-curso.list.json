@@ -1,0 +1,34 @@
+{
+  "content": [
+    {
+      "id": "4b1c57f7-50af-48ec-9c2d-abf24c34589e",
+      "gradoId": "c1df0b5c-669a-4df4-9d28-ac90d624ca96",
+      "institutoId": "b5581b8b-7cf2-45a3-8144-4d810d16b85a",
+      "cursoId": "8f5f401d-8b1d-4142-842d-3b2ff345b612",
+      "dia": "Lunes",
+      "horaInicio": "08:00:00",
+      "horaFinalizacion": "10:00:00",
+      "fechaInicio": "2025-01-15",
+      "fechaFinalizacion": "2025-03-30",
+      "capacidad": 25,
+      "status": "PROGRAMADO"
+    },
+    {
+      "id": "cfe6a014-f2c3-44a5-9d07-e0ab69bd741a",
+      "gradoId": "7c2ee4ac-bf77-4671-bc1c-9a2b76f1199c",
+      "institutoId": "ad80c18f-6a8d-45f4-aa0f-d8d498bed0f3",
+      "cursoId": "cb294b1b-583a-4cc1-8b1b-93450ccaa6b4",
+      "dia": "Miercoles",
+      "horaInicio": "18:00:00",
+      "horaFinalizacion": "20:00:00",
+      "fechaInicio": "2025-02-01",
+      "fechaFinalizacion": "2025-04-10",
+      "capacidad": 18,
+      "status": "EN_CURSO"
+    }
+  ],
+  "totalElements": 2,
+  "totalPages": 1,
+  "size": 20,
+  "number": 0
+}

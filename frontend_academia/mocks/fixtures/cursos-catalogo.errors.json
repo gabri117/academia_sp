@@ -1,0 +1,10 @@
+{
+  "notFound": {
+    "status": 404,
+    "message": "Curso catalogo no encontrado"
+  },
+  "validation": {
+    "status": 400,
+    "message": "Datos invalidos para curso catalogo"
+  }
+}

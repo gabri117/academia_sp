@@ -1,0 +1,13 @@
+{
+  "id": "9d6754f5-8c23-4ae5-a8f6-cf1a553fc4e1",
+  "gradoId": "c1df0b5c-669a-4df4-9d28-ac90d624ca96",
+  "institutoId": "b5581b8b-7cf2-45a3-8144-4d810d16b85a",
+  "cursoId": "8f5f401d-8b1d-4142-842d-3b2ff345b612",
+  "dia": "Viernes",
+  "horaInicio": "09:00:00",
+  "horaFinalizacion": "11:00:00",
+  "fechaInicio": "2025-04-01",
+  "fechaFinalizacion": "2025-06-15",
+  "capacidad": 22,
+  "status": "PROGRAMADO"
+}

@@ -1,0 +1,12 @@
+select,
+select option {
+  background-color: #ffffff !important;
+  color: #111111 !important;
+}
+
+[role='listbox'],
+.select-dropdown,
+.combo-dropdown {
+  background-color: #ffffff !important;
+  color: #111111 !important;
+}

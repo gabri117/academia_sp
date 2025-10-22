@@ -1,0 +1,14 @@
+[
+  {
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "evaluacionId": "b1f3d5ad-0b39-4f3c-b147-734b4543b74e",
+    "nota": 85.5,
+    "observaciones": "Buen desempeño."
+  },
+  {
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "evaluacionId": "0d7704b4-6c1b-4d8f-a6e5-9d2d3aef1de2",
+    "nota": 92.0,
+    "observaciones": null
+  }
+]

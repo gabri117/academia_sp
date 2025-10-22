@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: academia
+  datasource:
+    url: jdbc:postgresql://localhost:5432/sistemaacademia
+    username: postgres
+    password: gabrix117
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+      # AGREGA ESTO
+  web:
+    resources:
+      add-mappings: false  # evita conflictos con rutas /api que Spring trata como archivos estáticos
+  mvc:
+    throw-exception-if-no-handler-found: true  # lanza 404 reales si no encuentra un endpoint
+  # HASTA AQUÍ
+
+
+server:
+  port: 8080
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

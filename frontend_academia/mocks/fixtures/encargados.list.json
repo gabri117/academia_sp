@@ -1,0 +1,23 @@
+{
+  "content": [
+    {
+      "id": "0b3b3f9a-6e8f-49d3-9d05-9f5582c49776",
+      "nombre": "Carolina",
+      "apellido": "Mendez",
+      "telefono": "+50255550011"
+    },
+    {
+      "id": "2ef2d4d0-bf2e-4e35-8f84-35b5c9b40679",
+      "nombre": "Juan",
+      "apellido": "Rodas",
+      "telefono": null
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 10,
+    "sort": ["nombre,asc"]
+  },
+  "totalElements": 2,
+  "totalPages": 1
+}
