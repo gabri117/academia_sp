@@ -1,0 +1,294 @@
+{
+  "info": {
+    "name": "Academia API",
+    "description": "Colección Postman para demo QA. Cada carpeta incluye ejemplos de request/response. Variable baseUrl configurable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "Personas",
+      "description": "CRUD de alumnos, encargados y vínculos.",
+      "item": [
+        {
+          "name": "Listar alumnos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/alumnos?page=0&size=20"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear alumno",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutoId\": \"44444444-4444-4444-4444-444444444444\",\n  \"nombre\": \"Juan\",\n  \"apellido\": \"Perez\",\n  \"telefono\": \"5551234\",\n  \"direccion\": \"Zona 1\",\n  \"fechaNacimiento\": \"2012-03-15\",\n  \"estado\": \"activo\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/alumnos"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear encargado",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Maria\",\n  \"apellido\": \"Lopez\",\n  \"telefono\": \"5555678\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/encargados"
+          },
+          "response": []
+        },
+        {
+          "name": "Vincular alumno-encargado",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alumnoId\": \"88888888-8888-8888-8888-888888888888\",\n  \"encargadoId\": \"99999999-9999-9999-9999-999999999999\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/alumno-encargado"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Catálogo / Ofertas / Inscripciones",
+      "description": "Gestión del catálogo de cursos, ofertas y matrículas.",
+      "item": [
+        {
+          "name": "Listar cursos catálogo",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/cursos-catalogo?size=20"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear oferta",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"gradoId\": \"33333333-3333-3333-3333-333333333333\",\n  \"institutoId\": \"44444444-4444-4444-4444-444444444444\",\n  \"cursoId\": \"55555555-5555-5555-5555-555555555555\",\n  \"dia\": \"Lunes\",\n  \"horaInicio\": \"08:00:00\",\n  \"horaFinalizacion\": \"09:30:00\",\n  \"fechaInicio\": \"2025-01-10\",\n  \"fechaFinalizacion\": \"2025-10-30\",\n  \"capacidad\": 25,\n  \"status\": \"PROGRAMADO\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/ofertas-curso"
+          },
+          "response": []
+        },
+        {
+          "name": "Inscribir alumno",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alumnoId\": \"88888888-8888-8888-8888-888888888888\",\n  \"ofertaId\": \"66666666-6666-6666-6666-666666666666\",\n  \"fechaInscripcion\": \"2025-01-15\",\n  \"estado\": \"ACTIVA\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/inscripciones"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sesiones y Asistencia",
+      "description": "Programación de sesiones y control de asistencia.",
+      "item": [
+        {
+          "name": "Crear sesión clase",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ofertaId\": \"66666666-6666-6666-6666-666666666666\",\n  \"fecha\": \"2025-02-01\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/sesiones-clase"
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar asistencia",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sessionId\": \"bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb\",\n  \"inscripcionId\": \"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa\",\n  \"presente\": true\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/asistencias"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Evaluaciones y Calificaciones",
+      "description": "Unidades de evaluación y calificaciones de alumnos.",
+      "item": [
+        {
+          "name": "Crear unidad evaluación",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ofertaId\": \"66666666-6666-6666-6666-666666666666\",\n  \"nombre\": \"Parcial 1\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/unidades-evaluacion"
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar calificación",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inscripcionId\": \"aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa\",\n  \"evaluacionId\": \"cccccccc-cccc-cccc-cccc-cccccccccccc\",\n  \"nota\": 85.5,\n  \"observaciones\": \"Buen desempeño\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/calificaciones"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pagos",
+      "description": "Tarifas, cargos, recibos y detalles de pago.",
+      "item": [
+        {
+          "name": "Crear tarifa",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ofertaId\": \"66666666-6666-6666-6666-666666666666\",\n  \"montoInscripcion\": 150.00,\n  \"montoMensualidad\": 200.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/tarifas-curso"
+          },
+          "response": []
+        },
+        {
+          "name": "Crear cargo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tarifaId\": \"77777777-7777-7777-7777-777777777777\",\n  \"periodoMes\": \"ENERO\",\n  \"concepto\": \"Mensualidad Enero\",\n  \"monto\": 200.00,\n  \"estado\": \"PENDIENTE\"\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/cargos"
+          },
+          "response": []
+        },
+        {
+          "name": "Registrar recibo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"alumnoId\": \"88888888-8888-8888-8888-888888888888\",\n  \"total\": 0\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/recibos"
+          },
+          "response": []
+        },
+        {
+          "name": "Aplicar detalle al recibo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reciboId\": \"dddddddd-dddd-dddd-dddd-dddddddddddd\",\n  \"cargoId\": \"eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee\",\n  \"montoAplicado\": 200.00\n}"
+            },
+            "url": "{{baseUrl}}/api/v1/detalle-recibo"
+          },
+          "response": []
+        },
+        {
+          "name": "Estado de cuenta",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/alumnos/88888888-8888-8888-8888-888888888888/estado-cuenta"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Catálogos Base",
+      "description": "Gestión de establecimientos, niveles y grados.",
+      "item": [
+        {
+          "name": "Listar establecimientos",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/establecimientos?size=20"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar niveles",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/niveles-academicos"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar grados por nivel",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/v1/grados-academicos/nivel/11111111-1111-1111-1111-111111111111"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

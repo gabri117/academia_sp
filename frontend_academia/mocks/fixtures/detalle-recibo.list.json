@@ -1,0 +1,12 @@
+[
+  {
+    "reciboId": "6b4d20ac-6ed1-4b73-9a13-9f9486be5d52",
+    "cargoId": "9b6f7abe-4a36-45bc-9f84-1bdc3c39a6c4",
+    "montoAplicado": 275.0
+  },
+  {
+    "reciboId": "6b4d20ac-6ed1-4b73-9a13-9f9486be5d52",
+    "cargoId": "d3a24e44-b317-4b71-9391-50a4bd380a21",
+    "montoAplicado": 150.0
+  }
+]

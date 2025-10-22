@@ -1,0 +1,16 @@
+{
+  "validation": {
+    "timestamp": "2025-02-01T12:15:00Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Jornada es requerida",
+    "path": "/establecimientos"
+  },
+  "notFound": {
+    "timestamp": "2025-02-01T12:20:00Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Establecimiento no encontrado",
+    "path": "/establecimientos/999"
+  }
+}

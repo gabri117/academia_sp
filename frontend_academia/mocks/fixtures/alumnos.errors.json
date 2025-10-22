@@ -1,0 +1,16 @@
+{
+  "validation": {
+    "timestamp": "2025-02-01T10:15:00Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Nombre es requerido",
+    "path": "/alumnos"
+  },
+  "notFound": {
+    "timestamp": "2025-02-01T10:20:00Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Alumno no encontrado",
+    "path": "/alumnos/999"
+  }
+}

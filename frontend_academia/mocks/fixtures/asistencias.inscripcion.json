@@ -1,0 +1,17 @@
+[
+  {
+    "sessionId": "a9b1d6a8-7c4f-4f41-94a8-2ce19b2d91c1",
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "presente": true
+  },
+  {
+    "sessionId": "1e2e7b40-9efa-4c23-a6e5-7647e4f7c1c6",
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "presente": true
+  },
+  {
+    "sessionId": "7fbdf5e3-b750-4d5f-90f5-0a4c3b1dc011",
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "presente": false
+  }
+]

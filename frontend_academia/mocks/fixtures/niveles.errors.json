@@ -1,0 +1,16 @@
+{
+  "validation": {
+    "timestamp": "2025-02-01T12:45:00Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Nombre es requerido",
+    "path": "/niveles-academicos"
+  },
+  "notFound": {
+    "timestamp": "2025-02-01T12:50:00Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Nivel no encontrado",
+    "path": "/niveles-academicos/999"
+  }
+}

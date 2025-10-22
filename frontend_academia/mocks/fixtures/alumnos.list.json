@@ -1,0 +1,33 @@
+{
+  "content": [
+    {
+      "id": "a1c4e170-1bd4-420b-8c2e-77ed55af1d10",
+      "institutoId": "b5581b8b-7cf2-45a3-8144-4d810d16b85a",
+      "nombre": "Ana",
+      "apellido": "Guzman",
+      "telefono": "+50255551234",
+      "direccion": "Ciudad de Guatemala, zona 10",
+      "carnet": "AGZ-2024",
+      "fechaNacimiento": "2007-03-15",
+      "estado": "activo"
+    },
+    {
+      "id": "6c9c8d5f-3ce8-483b-a4b4-a5a93c8a0d75",
+      "institutoId": "b5581b8b-7cf2-45a3-8144-4d810d16b85a",
+      "nombre": "Luis",
+      "apellido": "Paz",
+      "telefono": "+50255557654",
+      "direccion": "Mixco, zona 4",
+      "carnet": "LPZ-2024",
+      "fechaNacimiento": "2006-11-02",
+      "estado": "activo"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 10,
+    "sort": ["nombre,asc"]
+  },
+  "totalElements": 2,
+  "totalPages": 1
+}

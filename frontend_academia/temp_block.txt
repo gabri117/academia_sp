@@ -1,0 +1,36 @@
+) : detalleDatos ? (
+          <div className="space-y-6">
+            <div className="rounded-md border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+              <div className="grid gap-2">
+                <div>
+                  <span className="font-semibold text-gray-800">Correlativo:</span>{' '}
+                  {detalleDatos.correlativo ?? 'Sin asignar'}
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Alumno:</span>{' '}
+                  {detalleDatos.alumnoNombre}
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Encargado(s):</span>{' '}
+                  {detalleDatos.encargados.length > 0
+                    ? detalleDatos.encargados.join(', ')
+                    : 'Sin encargados registrados'}
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Fecha de emision:</span>{' '}
+                  {detalleDatos.fechaEmision ?? 'Sin fecha'}
+                </div>
+                <div>
+                  <span className="font-semibold text-gray-800">Estado:</span>{' '}
+                  {detalleDatos.estado ?? 'EMITIDO'}
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold text-gray-800">Información de la oferta</h3>
+              {detalleDatos.ofertas.length === 0 ? (
+                <p className="mt-2 text-sm text-gray-500">
+                  No hay ofertas asociadas a este recibo.
+                </p>
+              ) : (

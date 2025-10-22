@@ -1,0 +1,18 @@
+[
+  {
+    "reciboId": "6b4d20ac-6ed1-4b73-9a13-9f9486be5d52",
+    "alumnoId": "0f4700c5-b5f9-4b8d-8aa8-5a149048d3f8",
+    "correlativoRecibo": "REC-2025-001",
+    "fecha": "2025-01-31",
+    "total": 275.0,
+    "estado": "EMITIDO"
+  },
+  {
+    "reciboId": "f5f77042-0c9f-4c6f-aa73-5eb5be342c04",
+    "alumnoId": "0f4700c5-b5f9-4b8d-8aa8-5a149048d3f8",
+    "correlativoRecibo": "REC-2025-002",
+    "fecha": "2025-02-28",
+    "total": 275.0,
+    "estado": "ANULADO"
+  }
+]

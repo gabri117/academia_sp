@@ -1,0 +1,12 @@
+[
+  {
+    "sessionId": "a9b1d6a8-7c4f-4f41-94a8-2ce19b2d91c1",
+    "inscripcionId": "2e1f63dd-5f21-4c2a-b4a1-1d4be8f16647",
+    "presente": true
+  },
+  {
+    "sessionId": "a9b1d6a8-7c4f-4f41-94a8-2ce19b2d91c1",
+    "inscripcionId": "9f5b23d2-21db-4598-81cb-0c18cd43cb3c",
+    "presente": false
+  }
+]

@@ -1,0 +1,380 @@
+meta:
+  system: "Academia"
+  api_base_url: "http://localhost:8080/api/v1"
+  auth:
+    type: "None"   # No hay @PreAuthorize documentado todavía
+  conventions:
+    json_keys_casing: "camelCase"
+    locale: "es-GT"
+    null_handling: "permit_null_in_optional_fields"
+    date_format: "yyyy-MM-dd"
+    time_format: "HH:mm:ss"
+  pagination:
+    style: "spring-pageable"
+    params: ["page", "size", "sort"]  # donde aplica
+  error_format:
+    shape:
+      timestamp: "string"
+      status: "number"
+      error: "string"
+      message: "string"
+      path: "string"
+    note: "Formato emitido por GlobalExceptionHandler"
+  enums:
+    AlumnoEstado: ["activo","inactivo"]
+    OfertaStatus: ["PROGRAMADO","EN_CURSO","FINALIZADO","CANCELADO"]
+    CargoEstado: ["PENDIENTE","CANCELADO"]
+    ReciboEstado: ["EMITIDO","ANULADO"]
+    Jornada: ["Matutina","Vespertina","Nocturna"]
+    Mes: ["ENERO","FEBRERO","MARZO","ABRIL","MAYO","JUNIO","JULIO","AGOSTO","SEPTIEMBRE","OCTUBRE","NOVIEMBRE","DICIEMBRE"]
+
+models:
+  - name: Alumno
+    dto: AlumnoResponseDTO
+    fields:
+      - { key: id, type: uuid, required: true }
+      - { key: institutoId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 50 } }
+      - { key: apellido, type: string, required: true, rules: { max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+      - { key: direccion, type: string, required: false, rules: { max: 100 } }
+      - { key: carnet, type: string, required: false, rules: { max: 20 } }
+      - { key: fechaNacimiento, type: date, required: false, format: "yyyy-MM-dd" }
+      - { key: estado, type: enum, enum: AlumnoEstado, required: true }
+    create_dto:
+      - { key: institutoId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: apellido, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+      - { key: direccion, type: string, required: false, rules: { max: 100 } }
+      - { key: carnet, type: string, required: false, rules: { max: 20 } }
+      - { key: fechaNacimiento, type: date, required: false, format: "yyyy-MM-dd" }
+      - { key: estado, type: enum, enum: AlumnoEstado, required: false, default: "activo" }
+    update_dto:
+      - { key: institutoId, type: uuid, required: false }
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: apellido, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+      - { key: direccion, type: string, required: false, rules: { max: 100 } }
+      - { key: carnet, type: string, required: false, rules: { max: 20 } }
+      - { key: fechaNacimiento, type: date, required: false, format: "yyyy-MM-dd" }
+      - { key: estado, type: enum, enum: AlumnoEstado, required: false }
+
+  - name: Encargado
+    dto: EncargadoResponseDTO
+    fields:
+      - { key: id, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 50 } }
+      - { key: apellido, type: string, required: true, rules: { max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+    create_update_shared:
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: apellido, type: string, required: true, rules: { notBlank: true, max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+
+  - name: Establecimiento
+    dto: EstablecimientoResponseDTO
+    id_key: institutoId
+    fields:
+      - { key: institutoId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 100 } }
+      - { key: direccion, type: string, required: false, rules: { max: 100 } }
+      - { key: nombreDirector, type: string, required: false, rules: { max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+      - { key: jornada, type: enum, enum: Jornada, required: true }
+    create_update_shared:
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 100 } }
+      - { key: direccion, type: string, required: false, rules: { max: 100 } }
+      - { key: nombreDirector, type: string, required: false, rules: { max: 50 } }
+      - { key: telefono, type: string, required: false, rules: { max: 15 } }
+      - { key: jornada, type: enum, enum: Jornada, required: true }
+
+  - name: Nivel
+    dto: NivelResponseDTO
+    id_key: nivelId
+    fields:
+      - { key: nivelId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 20 } }
+    create_update_shared:
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 20 } }
+
+  - name: Grado
+    dto: GradoResponseDTO
+    id_key: gradoId
+    fields:
+      - { key: gradoId, type: uuid, required: true }
+      - { key: nivelId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 50 } }
+    create_update_shared:
+      - { key: nivelId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 50 } }
+
+  - name: CursoCatalogo
+    dto: CursoCatalogoResponseDTO
+    id_key: id
+    fields:
+      - { key: id, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 30 } }
+      - { key: nivelCurso, type: string, required: false, rules: { max: 20 } }
+      - { key: duracion, type: string, required: false, rules: { max: 20 } }
+    create_update_shared:
+      - { key: nombre, type: string, required: true, rules: { notBlank: true, max: 30 } }
+      - { key: nivelCurso, type: string, required: false, rules: { max: 20 } }
+      - { key: duracion, type: string, required: false, rules: { max: 20 } }
+
+  - name: OfertaCurso
+    dto: OfertaCursoResponseDTO
+    id_key: id
+    fields:
+      - { key: id, type: uuid, required: true }
+      - { key: gradoId, type: uuid, required: true }
+      - { key: institutoId, type: uuid, required: true }
+      - { key: cursoId, type: uuid, required: true }
+      - { key: dia, type: string, required: false, rules: { max: 15 } }
+      - { key: horaInicio, type: time, required: true, format: "HH:mm:ss" }
+      - { key: horaFinalizacion, type: time, required: true, format: "HH:mm:ss" }
+      - { key: fechaInicio, type: date, required: true, format: "yyyy-MM-dd" }
+      - { key: fechaFinalizacion, type: date, required: true, format: "yyyy-MM-dd" }
+      - { key: capacidad, type: int, required: true, rules: { min: 0 } }
+      - { key: status, type: enum, enum: OfertaStatus, required: true }
+
+  - name: Inscripcion
+    dto: InscripcionResponseDTO
+    id_key: id
+    fields:
+      - { key: id, type: uuid, required: true }
+      - { key: alumnoId, type: uuid, required: true }
+      - { key: ofertaId, type: uuid, required: true }
+      - { key: fechaInscripcion, type: date, required: true, format: "yyyy-MM-dd" }
+      - { key: estado, type: string, required: true, rules: { max: 15 } }
+
+  - name: SesionClase
+    dto: SesionClaseResponseDTO
+    id_key: sessionId
+    fields:
+      - { key: sessionId, type: uuid, required: true }
+      - { key: ofertaId, type: uuid, required: true }
+      - { key: fecha, type: date, required: true, format: "yyyy-MM-dd" }
+
+  - name: Asistencia
+    dto: AsistenciaResponseDTO
+    composite_id: [sessionId, inscripcionId]
+    fields:
+      - { key: sessionId, type: uuid, required: true }
+      - { key: inscripcionId, type: uuid, required: true }
+      - { key: presente, type: boolean, required: true }
+
+  - name: UnidadEvaluacion
+    dto: UnidadEvaluacionResponseDTO
+    id_key: evaluacionId
+    fields:
+      - { key: evaluacionId, type: uuid, required: true }
+      - { key: ofertaId, type: uuid, required: true }
+      - { key: nombre, type: string, required: true, rules: { max: 25 } }
+
+  - name: Calificacion
+    dto: CalificacionResponseDTO
+    id_composite: [inscripcionId, evaluacionId]
+    fields:
+      - { key: inscripcionId, type: uuid, required: true }
+      - { key: evaluacionId, type: uuid, required: true }
+      - { key: nota, type: number, required: true, rules: { minDecimal: "0.00" } }
+      - { key: observaciones, type: string, required: false }
+
+  - name: TarifaCurso
+    dto: TarifaCursoResponseDTO
+    id_key: tarifaId
+    fields:
+      - { key: tarifaId, type: uuid, required: true }
+      - { key: ofertaId, type: uuid, required: true }
+      - { key: montoInscripcion, type: number, required: true, rules: { minDecimal: "0.00" } }
+      - { key: montoMensualidad, type: number, required: true, rules: { minDecimal: "0.00" } }
+
+  - name: Cargo
+    dto: CargoResponseDTO
+    id_key: cargoId
+    fields:
+      - { key: cargoId, type: uuid, required: true }
+      - { key: tarifaId, type: uuid, required: true }
+      - { key: periodoMes, type: enum, enum: Mes, required: true }
+      - { key: concepto, type: string, required: true, rules: { max: 30 } }
+      - { key: monto, type: number, required: true, rules: { minDecimal: "0.00" } }
+      - { key: estado, type: enum, enum: CargoEstado, required: true }
+
+  - name: Recibo
+    dto: ReciboResponseDTO
+    id_key: reciboId
+    fields:
+      - { key: reciboId, type: uuid, required: true }
+      - { key: alumnoId, type: uuid, required: true }
+      - { key: correlativoRecibo, type: string, required: false, rules: { max: 20 } }
+      - { key: fecha, type: date, required: false, format: "yyyy-MM-dd" }
+      - { key: total, type: number, required: false, rules: { minDecimal: "0.00" } }
+      - { key: estado, type: enum, enum: ReciboEstado, required: true, default: "EMITIDO" }
+
+  - name: DetalleRecibo
+    dto: DetalleReciboResponseDTO
+    composite_id: [reciboId, cargoId]
+    fields:
+      - { key: reciboId, type: uuid, required: true }
+      - { key: cargoId, type: uuid, required: true }
+      - { key: montoAplicado, type: number, required: true, rules: { minDecimal: "0.00" } }
+
+  - name: EstadoCuenta
+    dto: EstadoCuentaResponseDTO
+    fields:
+      - { key: alumnoId, type: uuid, required: true }
+      - { key: periodos, type: array<EstadoCuentaPeriodo>, required: true }
+      - { key: saldoTotal, type: number, required: true }
+  - name: EstadoCuentaPeriodo
+    dto: EstadoCuentaPeriodoDTO
+    fields:
+      - { key: periodo, type: enum, enum: Mes, required: true }
+      - { key: totalCargos, type: number, required: true }
+      - { key: totalPagos, type: number, required: true }
+      - { key: saldo, type: number, required: true }
+
+  - name: AlumnoEncargado
+    dto: AlumnoEncargadoResponseDTO
+    fields:
+      - { key: alumnoId, type: uuid, required: true }
+      - { key: alumnoNombreCompleto, type: string, required: true }
+      - { key: encargadoId, type: uuid, required: true }
+      - { key: encargadoNombreCompleto, type: string, required: true }
+
+endpoints:
+  # === Alumnos ===
+  - name: Listar alumnos
+    method: GET
+    path: /alumnos
+    pagination: true
+    query: [ { key: page, type: number }, { key: size, type: number }, { key: sort, type: string } ]
+    response: { data: "Page<Alumno>" }
+  - name: Obtener alumno
+    method: GET
+    path: /alumnos/{id}
+    response: { data: Alumno }
+  - name: Crear alumno
+    method: POST
+    path: /alumnos
+    body: AlumnoCreateDTO
+    response: { data: Alumno }
+  - name: Actualizar alumno
+    method: PUT
+    path: /alumnos/{id}
+    body: AlumnoUpdateDTO
+    response: { data: Alumno }
+  - name: Eliminar alumno
+    method: DELETE
+    path: /alumnos/{id}
+    response: { status: 204 }
+
+  # === Encargados ===
+  - { name: Listar encargados, method: GET, path: /encargados, pagination: true, query: [ {key: page},{key: size},{key: sort} ], response: { data: "Page<Encargado>" } }
+  - { name: Obtener encargado, method: GET, path: /encargados/{id}, response: { data: Encargado } }
+  - { name: Crear encargado, method: POST, path: /encargados, body: EncargadoCreateDTO, response: { data: Encargado } }
+  - { name: Actualizar encargado, method: PUT, path: /encargados/{id}, body: EncargadoUpdateDTO, response: { data: Encargado } }
+  - { name: Eliminar encargado, method: DELETE, path: /encargados/{id}, response: { status: 204 } }
+
+  # === Vínculo Alumno–Encargado ===
+  - { name: Vincular, method: POST, path: /alumno-encargado, body: VinculoAlumnoEncargadoRequest, response: { data: AlumnoEncargado } }
+  - { name: Desvincular, method: DELETE, path: /alumno-encargado/{alumnoId}/{encargadoId}, response: { status: 204 } }
+  - { name: Encargados de un alumno, method: GET, path: /alumno-encargado/alumno/{alumnoId}, response: { data: "AlumnoEncargado[]" } }
+  - { name: Alumnos de un encargado, method: GET, path: /alumno-encargado/encargado/{encargadoId}, response: { data: "AlumnoEncargado[]" } }
+
+  # === Establecimientos ===
+  - { name: Listar establecimientos, method: GET, path: /establecimientos, pagination: true, query: [ {key: page},{key: size},{key: sort} ], response: { data: "Page<Establecimiento>" } }
+  - { name: Obtener establecimiento, method: GET, path: /establecimientos/{institutoId}, response: { data: Establecimiento } }
+  - { name: Crear establecimiento, method: POST, path: /establecimientos, body: EstablecimientoCreateDTO, response: { data: Establecimiento } }
+  - { name: Actualizar establecimiento, method: PUT, path: /establecimientos/{institutoId}, body: EstablecimientoUpdateDTO, response: { data: Establecimiento } }
+  - { name: Eliminar establecimiento, method: DELETE, path: /establecimientos/{institutoId}, response: { status: 204 } }
+
+  # === Niveles y Grados ===
+  - { name: Listar niveles, method: GET, path: /niveles-academicos, response: { data: "Nivel[]" } }
+  - { name: Obtener nivel, method: GET, path: /niveles-academicos/{nivelId}, response: { data: Nivel } }
+  - { name: Crear nivel, method: POST, path: /niveles-academicos, body: NivelCreateDTO, response: { data: Nivel } }
+  - { name: Actualizar nivel, method: PUT, path: /niveles-academicos/{nivelId}, body: NivelUpdateDTO, response: { data: Nivel } }
+  - { name: Eliminar nivel, method: DELETE, path: /niveles-academicos/{nivelId}, response: { status: 204 } }
+
+  - { name: Listar grados, method: GET, path: /grados-academicos, response: { data: "Grado[]" } }
+  - { name: Listar grados por nivel, method: GET, path: /grados-academicos/nivel/{nivelId}, response: { data: "Grado[]" } }
+  - { name: Obtener grado, method: GET, path: /grados-academicos/{gradoId}, response: { data: Grado } }
+  - { name: Crear grado, method: POST, path: /grados-academicos, body: GradoCreateDTO, response: { data: Grado } }
+  - { name: Actualizar grado, method: PUT, path: /grados-academicos/{gradoId}, body: GradoUpdateDTO, response: { data: Grado } }
+  - { name: Eliminar grado, method: DELETE, path: /grados-academicos/{gradoId}, response: { status: 204 } }
+
+  # === Catálogo de cursos ===
+  - { name: Listar catálogo de cursos, method: GET, path: /cursos-catalogo, pagination: true, query: [ {key: nombre, type: string}, {key: page},{key: size},{key: sort} ], response: { data: "Page<CursoCatalogo>" } }
+  - { name: Obtener curso catálogo, method: GET, path: /cursos-catalogo/{id}, response: { data: CursoCatalogo } }
+  - { name: Crear curso catálogo, method: POST, path: /cursos-catalogo, body: CursoCatalogoCreateDTO, response: { data: CursoCatalogo } }
+  - { name: Actualizar curso catálogo, method: PUT, path: /cursos-catalogo/{id}, body: CursoCatalogoUpdateDTO, response: { data: CursoCatalogo } }
+  - { name: Eliminar curso catálogo, method: DELETE, path: /cursos-catalogo/{id}, response: { status: 204 } }
+
+  # === Ofertas de curso ===
+  - { name: Listar ofertas, method: GET, path: /ofertas-curso, pagination: true, query: [ {key: gradoId, type: uuid}, {key: institutoId, type: uuid}, {key: cursoId, type: uuid}, {key: page},{key: size},{key: sort} ], response: { data: "Page<OfertaCurso>" } }
+  - { name: Obtener oferta, method: GET, path: /ofertas-curso/{id}, response: { data: OfertaCurso } }
+  - { name: Crear oferta, method: POST, path: /ofertas-curso, body: OfertaCursoCreateDTO, response: { data: OfertaCurso } }
+  - { name: Actualizar oferta, method: PUT, path: /ofertas-curso/{id}, body: OfertaCursoUpdateDTO, response: { data: OfertaCurso } }
+  - { name: Eliminar oferta, method: DELETE, path: /ofertas-curso/{id}, response: { status: 204 } }
+
+  # === Inscripciones ===
+  - { name: Listar inscripciones, method: GET, path: /inscripciones, pagination: true, query: [ {key: page},{key: size},{key: sort} ], response: { data: "Page<Inscripcion>" } }
+  - { name: Crear inscripción, method: POST, path: /inscripciones, body: InscripcionCreateDTO, response: { data: Inscripcion } }
+  - { name: Actualizar inscripción, method: PUT, path: /inscripciones/{id}, body: InscripcionUpdateDTO, response: { data: Inscripcion } }
+  - { name: Eliminar inscripción, method: DELETE, path: /inscripciones/{id}, response: { status: 204 } }
+  - { name: Inscripciones por alumno, method: GET, path: /inscripciones/alumno/{alumnoId}, response: { data: "Inscripcion[]" } }
+  - { name: Inscripciones por oferta, method: GET, path: /inscripciones/oferta/{ofertaId}, response: { data: "Inscripcion[]" } }
+
+  # === Sesiones / Asistencias ===
+  - { name: Crear sesión, method: POST, path: /sesiones-clase, body: SesionClaseCreateDTO, response: { data: SesionClase } }
+  - { name: Sesiones por oferta, method: GET, path: /sesiones-clase/oferta/{ofertaId}, response: { data: "SesionClase[]" } }
+  - { name: Sesiones por rango, method: GET, path: /sesiones-clase/oferta/{ofertaId}/rango, query: [ {key: desde, type: date}, {key: hasta, type: date} ], response: { data: "SesionClase[]" } }
+  - { name: Registrar asistencia, method: POST, path: /asistencias, body: AsistenciaCreateDTO, response: { data: Asistencia } }
+  - { name: Asistencias por sesión, method: GET, path: /asistencias/sesion/{sessionId}, response: { data: "Asistencia[]" } }
+  - { name: Asistencias por inscripción, method: GET, path: /asistencias/inscripcion/{inscripcionId}, response: { data: "Asistencia[]" } }
+
+  # === Unidades de evaluación / Calificaciones ===
+  - { name: Crear unidad, method: POST, path: /unidades-evaluacion, body: UnidadEvaluacionCreateDTO, response: { data: UnidadEvaluacion } }
+  - { name: Unidades por oferta, method: GET, path: /unidades-evaluacion/oferta/{ofertaId}, response: { data: "UnidadEvaluacion[]" } }
+  - { name: Registrar calificación, method: POST, path: /calificaciones, body: CalificacionCreateDTO, response: { data: Calificacion } }
+  - { name: Calificaciones por inscripción, method: GET, path: /calificaciones/inscripcion/{inscripcionId}, response: { data: "Calificacion[]" } }
+  - { name: Calificaciones por oferta, method: GET, path: /calificaciones/oferta/{ofertaId}, response: { data: "Calificacion[]" } }
+
+  # === Tarifas / Cargos / Recibos ===
+  - { name: Crear tarifa, method: POST, path: /tarifas-curso, body: TarifaCursoCreateDTO, response: { data: TarifaCurso } }
+  - { name: Actualizar tarifa, method: PUT, path: /tarifas-curso/{tarifaId}, body: TarifaCursoUpdateDTO, response: { data: TarifaCurso } }
+  - { name: Obtener tarifa, method: GET, path: /tarifas-curso/{tarifaId}, response: { data: TarifaCurso } }
+  - { name: Eliminar tarifa, method: DELETE, path: /tarifas-curso/{tarifaId}, response: { status: 204 } }
+  - { name: Tarifas por oferta, method: GET, path: /tarifas-curso/oferta/{ofertaId}, response: { data: "TarifaCurso[]" } }
+
+  - { name: Crear cargo, method: POST, path: /cargos, body: CargoCreateDTO, response: { data: Cargo } }
+  - { name: Actualizar cargo, method: PUT, path: /cargos/{cargoId}, body: CargoUpdateDTO, response: { data: Cargo } }
+  - { name: Obtener cargo, method: GET, path: /cargos/{cargoId}, response: { data: Cargo } }
+  - { name: Eliminar cargo, method: DELETE, path: /cargos/{cargoId}, response: { status: 204 } }
+  - { name: Cargos por tarifa, method: GET, path: /cargos/tarifa/{tarifaId}, response: { data: "Cargo[]" } }
+  - { name: Recalcular cargo, method: POST, path: /cargos/{cargoId}/recalcular, response: { data: Cargo } }
+
+  - { name: Registrar recibo, method: POST, path: /recibos, body: ReciboCreateDTO, response: { data: Recibo } }
+  - { name: Recibos por alumno, method: GET, path: /recibos/alumno/{alumnoId}, response: { data: "Recibo[]" } }
+  - { name: Registrar detalle de recibo, method: POST, path: /detalle-recibo, body: DetalleReciboCreateDTO, response: { data: DetalleRecibo } }
+  - { name: Detalles por recibo, method: GET, path: /detalle-recibo/recibo/{reciboId}, response: { data: "DetalleRecibo[]" } }
+
+  # === Estado de cuenta ===
+  - { name: Estado de cuenta de alumno, method: GET, path: /alumnos/{alumnoId}/estado-cuenta, response: { data: EstadoCuenta } }
+
+ux:
+  forms:
+    defaults:
+      placeholders: true
+      tooltips: true
+      order_by_backend_dependency: true
+  loading:
+    show_skeletons: true
+    offline_support: false
+
+agreements:
+  versioning: "path-based /v1 (futuro /v2)"
+  feature_flags: []
+  notes:
+    - "Seguridad por roles aún NO definida en anotaciones; UI debe aplicar guardas de visibilidad."
+    - "Filtros por ownership (docenteId, alumnoId) pueden requerir soporte backend o filtrado client-side provisional."

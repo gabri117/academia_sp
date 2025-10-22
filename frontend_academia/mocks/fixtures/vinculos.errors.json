@@ -1,0 +1,9 @@
+{
+  "conflict": {
+    "timestamp": "2025-02-01T13:30:00Z",
+    "status": 409,
+    "error": "Conflict",
+    "message": "El encargado ya esta vinculado al alumno",
+    "path": "/alumno-encargado"
+  }
+}

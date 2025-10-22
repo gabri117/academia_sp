@@ -1,0 +1,16 @@
+{
+  "validation": {
+    "timestamp": "2025-02-01T13:05:00Z",
+    "status": 400,
+    "error": "Bad Request",
+    "message": "Nombre no debe exceder 50 caracteres",
+    "path": "/grados-academicos"
+  },
+  "notFound": {
+    "timestamp": "2025-02-01T13:10:00Z",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Grado no encontrado",
+    "path": "/grados-academicos/999"
+  }
+}
